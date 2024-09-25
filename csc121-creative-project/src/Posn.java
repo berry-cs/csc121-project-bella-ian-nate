@@ -3,25 +3,25 @@ import java.util.Objects;
 import processing.core.PApplet;
 
 public class Posn {
-    int x;
-    int y;
+    float x;
+    float y;
     
-    public Posn(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Posn(float f, float g) {
+        this.x = f;
+        this.y = g;
     }
 
     /**
      * @return the x
      */
-    public int getX() {
+    public float getX() {
         return x;
     }
 
     /**
      * @return the y
      */
-    public int getY() {
+    public float getY() {
         return y;
     }
     

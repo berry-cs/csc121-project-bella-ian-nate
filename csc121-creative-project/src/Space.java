@@ -13,6 +13,7 @@ public class Space implements IWorld {
 	boolean moveDown = false;
 	boolean moveLeft = false;
 	boolean moveRight = false;
+	int thrust = 1;
 
 	public Space() {
 		shipPos = new Posn(200, 200);
@@ -26,7 +27,7 @@ public class Space implements IWorld {
 				shipPos.x + shipSize / 4 >= alienPos.x && 
 				shipPos.y - shipSize / 4 >= alienPos.y &&
 				shipPos.y + shipSize / 4 <= alienPos.y + objectSize) {
-			score += 1;
+			score += 1 * thrust;
 			alienPos = new Posn((int) (Math.random() * 380), -25);
 		}
 
@@ -39,9 +40,19 @@ public class Space implements IWorld {
 		if (asteroidPos.y >= 400) {
 			asteroidPos = new Posn((int) (Math.random() * 380), -25);
 		}
-		asteroidPos.y = asteroidPos.y + 5;
-
-		alienPos.y = alienPos.y + 1;
+		if (alienPos.y >= 400 + objectSize) {
+			alienPos = new Posn((int) (Math.random() * 380), -25);
+		}
+		if (1 * thrust / 10 >= 1) {
+			asteroidPos.y = asteroidPos.y + 1 * thrust / 10;
+		} else {
+			asteroidPos.y = asteroidPos.y + 1;
+		}
+		if (1 * thrust / 10 >= 1) {
+			alienPos.y = alienPos.y + 1 * thrust / 10;
+		} else {
+			alienPos.y = alienPos.y + 1;
+		}
 
 		if (moveUp) {
 			shipPos = shipPos.translate(new Posn(0, -5));
@@ -80,6 +91,16 @@ public class Space implements IWorld {
 			p.fill(255);
 			p.textSize(16);
 			p.text("Score: " + score, 10, 20);
+			
+			// Draw thrust
+			p.strokeWeight(0);
+			p.fill(100, 100, 100);
+			p.rect(370, 290, 20, 100);
+			p.fill(255, 0, 0);
+			p.rect(375, 390, 10, -thrust);
+			p.fill(255);
+			p.textSize(16);
+			p.text(thrust + "%", 370, 286);
 		} else {
 			p.fill(255);
 			p.textSize(32);
@@ -91,20 +112,25 @@ public class Space implements IWorld {
 
 	@Override
 	public IWorld keyPressed(KeyEvent kev) {
-		switch (kev.getKeyCode()) {
-		case PApplet.UP:
+		if (kev.getKeyCode() == PApplet.UP) {
 			moveUp = true;
-			break;
-		case PApplet.DOWN:
-			moveDown = true;
-			break;
-		case PApplet.LEFT:
-			moveLeft = true;
-			break;
-		case PApplet.RIGHT:
-			moveRight = true;
-			break;
-		}
+        } else if (kev.getKeyCode() == PApplet.DOWN) {
+        	moveDown = true;
+        } else if (kev.getKeyCode() == PApplet.LEFT) {
+        	moveLeft = true;
+        } else if (kev.getKeyCode() == PApplet.RIGHT) {
+        	moveRight = true;
+        } else if (kev.getKey() == 'w'){
+        	if (thrust < 100) {
+        		thrust++;
+        	}
+        } else if (kev.getKey() == 's'){
+        	if (thrust > 1) {
+        		thrust--;
+        	}
+        } else {
+            return this;
+        }
 		return this;
 	}
 
