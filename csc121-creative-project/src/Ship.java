@@ -1,6 +1,7 @@
 import processing.event.KeyEvent;
 import processing.core.PApplet;
 
+/* represents a ship in the game, controlled by player  */
 public class Ship extends GameObject {
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private final float moveSpeed = 5;
@@ -14,11 +15,13 @@ public class Ship extends GameObject {
     }
 
     @Override
+    // draws ship as a blue circle
     public void draw(PApplet p) {
         p.fill(0, 0, 255);
         p.ellipse(position.getX(), position.getY(), size, size);
     }
 
+    // start movement
     public void handleKeyPressed(KeyEvent kev) {
         switch (kev.getKeyCode()) {
             case PApplet.UP -> moveUp = true;
@@ -28,6 +31,7 @@ public class Ship extends GameObject {
         }
     }
 
+    // stop movement
     public void handleKeyReleased(KeyEvent kev) {
         switch (kev.getKeyCode()) {
             case PApplet.UP -> moveUp = false;
@@ -37,6 +41,7 @@ public class Ship extends GameObject {
         }
     }
 
+    // move ship based on key states from above ^
     public void updateMovement() {
         if (moveUp) position = position.translate(new Posn(0, -moveSpeed));
         if (moveDown) position = position.translate(new Posn(0, moveSpeed));
