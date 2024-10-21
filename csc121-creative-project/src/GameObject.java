@@ -15,8 +15,11 @@ public abstract class GameObject {
 
     // hitboxes right now, not accurate >:/
     // checks collision based on position and size
-    public boolean collidesWith(GameObject other) {
+    public boolean collidesWithCircle(GameObject other) {
         return position.distanceTo(other.position) <= (this.size / 2 + other.size / 2);
+    }
+    public boolean collidesWithRect(GameObject other) {
+        return new Posn(this.position.x - (this.size), this.position.y - (this.size)).distanceTo(other.position) <= (this.size / 2 + other.size / 2);
     }
 
 

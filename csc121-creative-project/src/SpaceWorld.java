@@ -25,18 +25,18 @@ public class SpaceWorld implements IWorld {
 
 
     @Override
-    // updates game fro each frame
+    // updates game for each frame
     public IWorld update() {
         if (!gameOver) {
             // collision between ship and alien
-            if (ship.collidesWith(alien)) {
+            if (ship.collidesWithRect(alien)) {
                 score += 1 * thrust;
                 alien.resetPosition();
             }
 
             // collisions for each asteroid
             for (Asteroid asteroid : asteroids) {
-                if (ship.collidesWith(asteroid)) {
+                if (ship.collidesWithCircle(asteroid)) {
                     gameOver = true;
                     break;  // end loop if game over
                 }

@@ -11,7 +11,7 @@ public class Asteroid extends GameObject {
     // asteroids are red squares right now
     public void draw(PApplet p) {
         p.fill(255, 0, 0);
-        p.rect(position.getX(), position.getY(), size, size);
+        p.ellipse(position.getX(), position.getY(), size, size);
     }
 
     // moves asteroid downwards based on the thrust
