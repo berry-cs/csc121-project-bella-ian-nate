@@ -5,6 +5,8 @@ import processing.core.PApplet;
 public class Ship extends GameObject {
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private final float moveSpeed = 5;
+    public int width = 400;
+    public int height = 400;
 
     public Ship(Posn position, float size) {
         super(position, size);
@@ -43,9 +45,19 @@ public class Ship extends GameObject {
 
     // move ship based on key states from above ^
     public void updateMovement() {
-        if (moveUp) position = position.translate(new Posn(0, -moveSpeed));
-        if (moveDown) position = position.translate(new Posn(0, moveSpeed));
-        if (moveLeft) position = position.translate(new Posn(-moveSpeed, 0));
-        if (moveRight) position = position.translate(new Posn(moveSpeed, 0));
+		    if (moveUp) position = checkMovement(position, 0, -moveSpeed);
+		    if (moveDown) position = checkMovement(position, 0, moveSpeed);
+		    if (moveLeft) position = checkMovement(position, -moveSpeed, 0);
+		    if (moveRight) position = checkMovement(position, moveSpeed, 0);
+    }
+    
+    public Posn checkMovement(Posn pos, float translateX, float translateY) {
+    	Posn newPos = pos.translate(new Posn(translateX, translateY));
+    	if (newPos.x <= width - size/2 && newPos.x >= 0 + size/2 && newPos.y >= 0 + size/2 && newPos.y <= height - size/2) {
+    		return newPos;
+    	} else {
+    		return pos;
+    	}
+    
     }
 }
