@@ -45,6 +45,14 @@ public class SpaceWorld implements IWorld {
     // updates game for each frame
     public IWorld update() {
         if (!gameOver) {
+        	// makes sure the background speed is always at least 1 (0.1 increases speed every 10%)
+            backgroundSpeed = Math.max(1, thrust * 0.1f); // the 'f' makes it a float
+            
+            // moves stars in background
+            for (Star star : stars) {
+            	star.move(backgroundSpeed);
+            }
+        	
             // collision between ship and alien
             if (ship.collidesWithRect(alien)) {
                 score += 1 * thrust;
@@ -60,14 +68,6 @@ public class SpaceWorld implements IWorld {
                 asteroid.move(thrust);
             }
             
-            // makes sure the background speed is always at least 1 (0.1 increases speed every 10%)
-            backgroundSpeed = Math.max(1, thrust * 0.1f); // the 'f' makes it a float
-            
-            // moves stars in background
-            for (Star star : stars) {
-            	star.move(backgroundSpeed);
-            }
-            
             alien.move(thrust);
 
             ship.updateMovement();
@@ -81,15 +81,15 @@ public class SpaceWorld implements IWorld {
     public void draw(PApplet p) {
         p.background(0);
         if (!gameOver) {
+        	for (Star star : stars) {
+            	star.draw(p);
+            }
+        	
             ship.draw(p);
             alien.draw(p);
             
             for (Asteroid asteroid : asteroids) {
                 asteroid.draw(p);
-            }
-            
-            for (Star star : stars) {
-            	star.draw(p);
             }
 
             p.fill(255);
@@ -199,7 +199,7 @@ public class SpaceWorld implements IWorld {
     public void NumAsteroids(int count) {
         this.asteroids.clear(); // clear existing asteroids (if they're there)
         for (int i = 0; i < count; i++) {
-        	this.asteroids.add(new Asteroid(new Posn((int) (Math.random() * 380), (int) (Math.random() * -50)), 50, asteroidImage));
+        	this.asteroids.add(new Asteroid(new Posn((int) (Math.random() * 380), (int) (Math.random() * -150)), 50, asteroidImage));
         }
     }
     

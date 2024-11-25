@@ -26,7 +26,7 @@ public class Ship extends GameObject {
     	if (image != null) {
             p.image(image, position.x, position.y, size, size);
         } else {
-            // fallbacl
+            // fallback
             p.fill(255);
             p.ellipse(position.x, position.y, size, size);
         }
