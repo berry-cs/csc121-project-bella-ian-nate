@@ -7,6 +7,7 @@ public class Asteroid extends GameObject {
 
     public Asteroid(Posn position, int size, PImage image) {
         super(position, size);
+        this.image = image;
     }
 
     @Override

@@ -54,14 +54,14 @@ public class SpaceWorld implements IWorld {
             }
         	
             // collision between ship and alien
-            if (ship.collidesWithRect(alien)) {
+            if (ship.collidesWith(alien)) { // was ship.collidesWithRect(alien)
                 score += 1 * thrust;
                 alien.resetPosition();
             }
 
             // collisions for each asteroid
             for (Asteroid asteroid : asteroids) {
-                if (ship.collidesWithCircle(asteroid)) {
+                if (ship.collidesWith(asteroid)) { // was ship.collidesWithCircle(asteroid)
                     gameOver = true;
                     break;  // end loop if game over
                 }

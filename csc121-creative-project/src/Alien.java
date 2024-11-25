@@ -7,6 +7,7 @@ public class Alien extends GameObject {
 
     public Alien(Posn position, int size, PImage image) {
         super(position, size);
+        this.image = image;
     }
 
     @Override

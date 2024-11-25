@@ -16,6 +16,7 @@ public class Ship extends GameObject {
         this.moveDown = false;
         this.moveLeft = false;
         this.moveRight = false;
+        this.image = image;
         
     }
 
@@ -24,7 +25,7 @@ public class Ship extends GameObject {
     public void draw(PApplet p) {
     	
     	if (image != null) {
-            p.image(image, position.x, position.y, size, size);
+            p.image(image, position.x, position.y, size + 15, size + 15);
         } else {
             // fallback
             p.fill(255);
