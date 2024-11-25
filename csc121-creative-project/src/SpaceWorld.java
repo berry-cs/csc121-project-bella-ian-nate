@@ -7,9 +7,11 @@ public class SpaceWorld implements IWorld {
     Ship ship;
     Alien alien;
     ArrayList<Asteroid> asteroids;
+    ArrayList<Star> stars;
     int score;
     boolean gameOver;
     int thrust;
+    float backgroundSpeed;
 
     public SpaceWorld() {
         this.ship = new Ship(new Posn(200, 200), 30);
@@ -17,10 +19,14 @@ public class SpaceWorld implements IWorld {
         
         this.asteroids = new ArrayList<>();
         NumAsteroids(2); // CHANGE NUM OF ASTEROIDS IN RESET CALL FOR CONSISTANCY
+        
+        this.stars = new ArrayList<>();
+        NumStars(100);
 
         this.score = 0;
         this.gameOver = false;
-        this.thrust = 1;
+        this.thrust = 10;
+        this.backgroundSpeed = 1;
     }
 
 
@@ -43,6 +49,14 @@ public class SpaceWorld implements IWorld {
                 asteroid.move(thrust);
             }
             
+            // makes sure the background speed is always at least 1 (0.1 increases speed every 10% thrust)
+            backgroundSpeed = Math.max(1, thrust * 0.1f); // the 'f' makes it a float
+            
+            // moves stars in background
+            for (Star star : stars) {
+            	star.move(backgroundSpeed);
+            }
+            
             alien.move(thrust);
 
             ship.updateMovement();
@@ -61,6 +75,10 @@ public class SpaceWorld implements IWorld {
             
             for (Asteroid asteroid : asteroids) {
                 asteroid.draw(p);
+            }
+            
+            for (Star star : stars) {
+            	star.draw(p);
             }
 
             p.fill(255);
@@ -102,10 +120,15 @@ public class SpaceWorld implements IWorld {
     public void ResetGame() {
         this.ship = new Ship(new Posn(200, 200), 30);
         this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50);
+        
         NumAsteroids(2);
+        this.stars.clear();
+        NumStars(100);
+        
         this.score = 0;
         this.gameOver = false;
         this.thrust = 1;
+        this.backgroundSpeed = 1;
     }
     
     // num of asteroids to appear on screen
@@ -114,6 +137,14 @@ public class SpaceWorld implements IWorld {
         for (int i = 0; i < count; i++) {
             this.asteroids.add(new Asteroid(new Posn((int) (Math.random() * 380), -10), 50));
         }
+    }
+    
+    public void NumStars(int count) {
+    	for (int i = 0; i < count; i++) {
+    		int x = (int) (Math.random() * 400);
+    		int y = (int) (Math.random() * 400);
+    		stars.add(new Star(x, y));
+    	}
     }
 
 }
