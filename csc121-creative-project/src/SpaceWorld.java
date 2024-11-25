@@ -12,6 +12,11 @@ public class SpaceWorld implements IWorld {
     boolean gameOver;
     int thrust;
     float backgroundSpeed;
+    char fL = 'A';
+	char sL = 'A';
+	char tL = 'A';
+	int aLetter = 0;
+	int cursorPos = 241;
 
     public SpaceWorld() {
         this.ship = new Ship(new Posn(200, 200), 30);
@@ -88,9 +93,15 @@ public class SpaceWorld implements IWorld {
         } else {
             p.fill(255);
             p.textSize(32);
-            p.text("Game Over!", 115, 150);
+            p.text("Game Over!", 115, 100);
+            p.text("Enter Name:", 60, 150);
+            p.text(fL, 240, 150);
+            p.text(sL, 270, 150);
+            p.text(tL, 300, 150);
+            p.text("_", cursorPos, 155);
             p.text("Score: " + score, 135, 200);
             p.text("Press 'r' to reset", 90, 250);
+            p.text("Press Enter to save scores", 30, 300);
         }
     }
 
@@ -102,11 +113,21 @@ public class SpaceWorld implements IWorld {
             thrust++;
         } else if (kev.getKey() == 's' && thrust > 1) {
             thrust--;
-        } else {
-        	if (kev.getKey() == 'r') {
-        		ResetGame();
+        } else if (kev.getKey() == 'r') {
+        	ResetGame();
+        } else if (gameOver) {
+        	if (kev.getKeyCode() == PApplet.UP) {
+        		changeLetterUp();
+        	} else if (kev.getKeyCode() == PApplet.DOWN) {
+        		changeLetterDown();
+        	} else if (kev.getKeyCode() == PApplet.LEFT) {
+        		changeLetterIndexDown();
+        	} else if (kev.getKeyCode() == PApplet.RIGHT) {
+        		changeLetterIndexUp();
         	}
         }
+        
+        	
         return this;
     }
 
@@ -127,8 +148,46 @@ public class SpaceWorld implements IWorld {
         
         this.score = 0;
         this.gameOver = false;
-        this.thrust = 1;
+        this.thrust = 10;
         this.backgroundSpeed = 1;
+    }
+    
+    public void changeLetterUp() {
+    	if (aLetter == 0) {
+    		fL++;
+    	}
+    	if (aLetter == 1) {
+    		sL++;
+    	}
+    	if (aLetter == 2) {
+    		tL++;
+    	}
+    }
+    public void changeLetterDown() {
+    	if (aLetter == 0) {
+    		fL--;
+    		
+    	}
+    	if (aLetter == 1) {
+    		sL--;
+    	}
+    	if (aLetter == 2) {
+    		tL--;
+    	}
+    }
+    
+    public void changeLetterIndexUp() {
+    	if (aLetter >= 0 && aLetter < 2) {
+    		aLetter++;
+    		cursorPos += 30;
+    	}
+    }
+    
+    public void changeLetterIndexDown() {
+    	if (aLetter > 0 && aLetter <= 2) {
+    		aLetter--;
+    		cursorPos -= 30;
+    	}
     }
     
     // num of asteroids to appear on screen
