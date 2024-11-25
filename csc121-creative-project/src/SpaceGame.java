@@ -12,7 +12,7 @@ public class SpaceGame extends PApplet {
     }
 
     public void setup() {
-        world = new SpaceWorld();
+        world = new SpaceWorld(this);
     }
 
     public void draw() {

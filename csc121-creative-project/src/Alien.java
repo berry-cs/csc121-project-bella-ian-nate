@@ -1,17 +1,23 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /* represents an alien object in the game */
 public class Alien extends GameObject {
+	PImage image;
 
-    public Alien(Posn position, float size) {
+    public Alien(Posn position, int size, PImage image) {
         super(position, size);
     }
 
     @Override
     // alien is a green square right now for simplicity
     public void draw(PApplet p) {
-        p.fill(0, 255, 0);
-        p.rect(position.getX(), position.getY(), size, size);
+    	if (image != null) {
+            p.image(image, position.x, position.y, size, size);
+        } else { // fallback
+            p.fill(0, 255, 0);
+            p.rect(position.x, position.y, size, size);
+        }
     }
 
     // moves alien downwards based on the thrust

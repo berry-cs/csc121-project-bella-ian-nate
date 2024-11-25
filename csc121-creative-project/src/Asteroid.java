@@ -1,17 +1,23 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /* represents an asteroid object in the game */
 public class Asteroid extends GameObject {
+	PImage image;
 
-    public Asteroid(Posn position, float size) {
+    public Asteroid(Posn position, int size, PImage image) {
         super(position, size);
     }
 
     @Override
     // asteroids are red squares right now
     public void draw(PApplet p) {
-        p.fill(255, 0, 0);
-        p.ellipse(position.getX(), position.getY(), size, size);
+    	if (image != null) {
+            p.image(image, position.x, position.y, size, size); 
+        } else { // fallback
+            p.fill(255, 0, 0);
+            p.ellipse(position.x, position.y, size, size);
+        }
     }
 
     // moves asteroid downwards based on the thrust

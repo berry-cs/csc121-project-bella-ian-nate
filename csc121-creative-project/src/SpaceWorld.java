@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -17,13 +18,18 @@ public class SpaceWorld implements IWorld {
 	char tL = 'A';
 	int aLetter = 0;
 	int cursorPos = 241;
+    PImage shipImage, alienImage, asteroidImage;
 
-    public SpaceWorld() {
-        this.ship = new Ship(new Posn(200, 200), 30);
-        this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50);
+    public SpaceWorld(PApplet app) {
+    	this.shipImage = app.loadImage("shipSpaceGame.png");
+        this.alienImage = app.loadImage("alienSpaceGame.png");
+        this.asteroidImage = app.loadImage("asteroidSpaceGame.png");
+    	
+        this.ship = new Ship(new Posn(200, 200), 30, shipImage);
+        this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50, alienImage);
         
         this.asteroids = new ArrayList<>();
-        NumAsteroids(2); // CHANGE NUM OF ASTEROIDS IN RESET CALL FOR CONSISTANCY
+        NumAsteroids(3); // CHANGE NUM OF ASTEROIDS IN RESET CALL FOR CONSISTANCY
         
         this.stars = new ArrayList<>();
         NumStars(100);
@@ -54,7 +60,7 @@ public class SpaceWorld implements IWorld {
                 asteroid.move(thrust);
             }
             
-            // makes sure the background speed is always at least 1 (0.1 increases speed every 10% thrust)
+            // makes sure the background speed is always at least 1 (0.1 increases speed every 10%)
             backgroundSpeed = Math.max(1, thrust * 0.1f); // the 'f' makes it a float
             
             // moves stars in background
@@ -139,11 +145,10 @@ public class SpaceWorld implements IWorld {
     
     // resets the game (fresh start, not the same)
     public void ResetGame() {
-        this.ship = new Ship(new Posn(200, 200), 30);
-        this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50);
+        this.ship = new Ship(new Posn(200, 200), 30, shipImage);
+        this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50, alienImage);
         
-        NumAsteroids(2);
-        this.stars.clear();
+        NumAsteroids(3);
         NumStars(100);
         
         this.score = 0;
@@ -194,11 +199,12 @@ public class SpaceWorld implements IWorld {
     public void NumAsteroids(int count) {
         this.asteroids.clear(); // clear existing asteroids (if they're there)
         for (int i = 0; i < count; i++) {
-            this.asteroids.add(new Asteroid(new Posn((int) (Math.random() * 380), -10), 50));
+        	this.asteroids.add(new Asteroid(new Posn((int) (Math.random() * 380), (int) (Math.random() * -50)), 50, asteroidImage));
         }
     }
     
     public void NumStars(int count) {
+    	this.stars.clear();
     	for (int i = 0; i < count; i++) {
     		int x = (int) (Math.random() * 400);
     		int y = (int) (Math.random() * 400);

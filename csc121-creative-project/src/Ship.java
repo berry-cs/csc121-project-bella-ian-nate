@@ -1,4 +1,5 @@
 import processing.event.KeyEvent;
+import processing.core.PImage;
 import processing.core.PApplet;
 
 /* represents a ship in the game, controlled by player  */
@@ -7,20 +8,28 @@ public class Ship extends GameObject {
     private final float moveSpeed = 5;
     public int width = 400;
     public int height = 400;
+    PImage image;
 
-    public Ship(Posn position, float size) {
+    public Ship(Posn position, int size, PImage image) {
         super(position, size);
         this.moveUp = false;
         this.moveDown = false;
         this.moveLeft = false;
         this.moveRight = false;
+        
     }
 
     @Override
     // draws ship as a blue circle
     public void draw(PApplet p) {
-        p.fill(0, 0, 255);
-        p.ellipse(position.getX(), position.getY(), size, size);
+    	
+    	if (image != null) {
+            p.image(image, position.x, position.y, size, size);
+        } else {
+            // fallbacl
+            p.fill(255);
+            p.ellipse(position.x, position.y, size, size);
+        }
     }
 
     // start movement
