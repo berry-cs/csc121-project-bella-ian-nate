@@ -17,7 +17,7 @@ public class Asteroid extends GameObject {
             p.image(image, position.x, position.y, size + 15, size + 15); 
         } else { // fallback
             p.fill(255, 0, 0);
-            p.ellipse(position.x, position.y, size - 60, size - 60);
+            p.ellipse(position.x, position.y, size - 90, size - 90);
         }
     }
 

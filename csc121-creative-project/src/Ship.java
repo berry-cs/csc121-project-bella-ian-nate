@@ -29,7 +29,7 @@ public class Ship extends GameObject {
         } else {
             // fallback
             p.fill(255);
-            p.ellipse(position.x, position.y, size - 45, size - 45);
+            p.ellipse(position.x, position.y, size - 60, size - 90);
         }
     }
 
