@@ -25,11 +25,11 @@ public class Ship extends GameObject {
     public void draw(PApplet p) {
     	
     	if (image != null) {
-            p.image(image, position.x, position.y, size + 15, size + 15);
+            p.image(image, position.x, position.y, size + 45, size + 45);
         } else {
             // fallback
             p.fill(255);
-            p.ellipse(position.x, position.y, size, size);
+            p.ellipse(position.x, position.y, size - 45, size - 45);
         }
     }
 
