@@ -14,10 +14,10 @@ public class Asteroid extends GameObject {
     // asteroids are red squares right now
     public void draw(PApplet p) {
     	if (image != null) {
-            p.image(image, position.x, position.y, size, size); 
+            p.image(image, position.x, position.y, size + 15, size + 15); 
         } else { // fallback
             p.fill(255, 0, 0);
-            p.ellipse(position.x, position.y, size - 45, size - 45);
+            p.ellipse(position.x, position.y, size - 60, size - 60);
         }
     }
 

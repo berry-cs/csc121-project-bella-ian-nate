@@ -14,10 +14,10 @@ public class Alien extends GameObject {
     // alien is a green square right now for simplicity
     public void draw(PApplet p) {
     	if (image != null) {
-            p.image(image, position.x, position.y, size, size);
+            p.image(image, position.x, position.y, size + 15, size + 15);
         } else { // fallback
             p.fill(0, 255, 0);
-            p.rect(position.x, position.y, size, size);
+            p.rect(position.x, position.y, size - 15, size - 15);
         }
     }
 
