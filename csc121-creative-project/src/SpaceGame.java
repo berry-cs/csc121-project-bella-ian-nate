@@ -6,9 +6,11 @@ import processing.event.*;
  */
 public class SpaceGame extends PApplet {
     private IWorld world;
+    private int width = 400;
+    private int height = 400;
 
     public void settings() {
-        size(400, 400);
+        size(width, height);
     }
 
     public void setup() {

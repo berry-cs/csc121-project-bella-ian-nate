@@ -6,8 +6,11 @@ import processing.core.PApplet;
 public class Ship extends GameObject {
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private final float moveSpeed = 5;
-    public int width = 400;
-    public int height = 400;
+    private int width = 400;
+    private int height = 400;
+    private float imgSize = getSize() + 45;
+    private float noImgSize = getSize() + 15;
+    
     PImage image;
 
     public Ship(Posn position, int size, PImage image) {
@@ -25,11 +28,11 @@ public class Ship extends GameObject {
     public void draw(PApplet p) {
     	
     	if (image != null) {
-            p.image(image, position.x, position.y, size + 45, size + 45);
+            p.image(image, getPosition().getX(), getPosition().getY(), imgSize, imgSize);
         } else {
             // fallback
             p.fill(255);
-            p.ellipse(position.x, position.y, size + 15, size + 15);
+            p.ellipse(getPosition().getX(), getPosition().getY(), noImgSize, noImgSize);
         }
     }
 
@@ -55,15 +58,15 @@ public class Ship extends GameObject {
 
     // move ship based on key states from above ^
     public void updateMovement() {
-		    if (moveUp) position = checkMovement(position, 0, -moveSpeed);
-		    if (moveDown) position = checkMovement(position, 0, moveSpeed);
-		    if (moveLeft) position = checkMovement(position, -moveSpeed, 0);
-		    if (moveRight) position = checkMovement(position, moveSpeed, 0);
+			if (moveUp) setPosition(checkMovement(getPosition(), 0, -moveSpeed));
+		    if (moveDown) setPosition(checkMovement(getPosition(), 0, moveSpeed));
+		    if (moveLeft) setPosition(checkMovement(getPosition(), -moveSpeed, 0));
+		    if (moveRight) setPosition(checkMovement(getPosition(), moveSpeed, 0));
     }
     
     public Posn checkMovement(Posn pos, float translateX, float translateY) {
     	Posn newPos = pos.translate(new Posn(translateX, translateY));
-    	if (newPos.x <= width - size/2 - 30 && newPos.x >= 0 + size/2 - 15 && newPos.y >= 0 + size/2 - 30 && newPos.y <= height - size/2 - 15) {
+    	if (newPos.getX() <= width - imgSize && newPos.getX() >= 0 && newPos.getY() >= 0 && newPos.getY() <= height - imgSize) {
     		return newPos;
     	} else {
     		return pos;

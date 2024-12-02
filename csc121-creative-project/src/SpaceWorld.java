@@ -1,24 +1,31 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.KeyEvent;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /* represents the game world. run this to play  */
 public class SpaceWorld implements IWorld {
-    Ship ship;
-    Alien alien;
-    ArrayList<Asteroid> asteroids;
-    ArrayList<Star> stars;
-    int score;
-    boolean gameOver;
-    int thrust;
-    float backgroundSpeed;
-    char fL = 'A';
-	char sL = 'A';
-	char tL = 'A';
-	int aLetter = 0;
-	int cursorPos = 241;
-    PImage shipImage, alienImage, asteroidImage;
+    private Ship ship;
+    private Alien alien;
+    private ArrayList<Asteroid> asteroids;
+    private ArrayList<Star> stars;
+    private int score;
+    private boolean gameOver;
+    private int thrust;
+    private float backgroundSpeed;
+    private char fL = 'A';
+    private char sL = 'A';
+    private char tL = 'A';
+    private int aLetter = 0;
+    private int cursorPos = 241;
+    private PImage shipImage, alienImage, asteroidImage;
+    private String topScore = "";
+    private String filename = "highscores.txt";
 
     public SpaceWorld(PApplet app) {
     	this.shipImage = app.loadImage("shipSpaceGame.png");
@@ -97,17 +104,35 @@ public class SpaceWorld implements IWorld {
             p.text("Score: " + score, 10, 20);
             p.text("Thrust: " + thrust + "%", 10, 40);
         } else {
-            p.fill(255);
+        	try {
+				Scanner sc = new Scanner(new File(filename));
+				
+				if ( sc.hasNext() ) {
+					topScore = sc.next() + " " + sc.next();
+				} else {
+					topScore = "None";
+				}
+				sc.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            p.fill(255, 0, 0);
             p.textSize(32);
-            p.text("Game Over!", 115, 100);
-            p.text("Enter Name:", 60, 150);
+            p.text("Game Over!", 130, 100);
+            p.fill(255);
+            p.text("Score: " + score, 140, 200);
+            p.fill(0, 255, 0);
+            p.text("Enter Name:", 70, 150);
             p.text(fL, 240, 150);
             p.text(sL, 270, 150);
             p.text(tL, 300, 150);
             p.text("_", cursorPos, 155);
-            p.text("Score: " + score, 135, 200);
-            p.text("Press 'r' to reset", 90, 250);
-            p.text("Press Enter to save scores", 30, 300);
+            p.fill(255);
+            p.text("Saved Score: " + topScore, 80, 250);
+            p.fill(100);
+            p.text("Press Enter to save last", 50, 300);
+            p.text("score and restart game", 50, 350);
         }
     }
 
@@ -120,7 +145,7 @@ public class SpaceWorld implements IWorld {
         } else if (kev.getKey() == 's' && thrust > 1) {
             thrust--;
         } else if (kev.getKey() == 'r') {
-        	ResetGame();
+        	
         } else if (gameOver) {
         	if (kev.getKeyCode() == PApplet.UP) {
         		changeLetterUp();
@@ -130,6 +155,19 @@ public class SpaceWorld implements IWorld {
         		changeLetterIndexDown();
         	} else if (kev.getKeyCode() == PApplet.RIGHT) {
         		changeLetterIndexUp();
+        	} else if (kev.getKeyCode() == PApplet.ENTER) {
+        		PrintWriter pw = null;
+				try {
+					pw = new PrintWriter(new File("highscores.txt"));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+        		pw.println(Character.toString(fL) +""+ Character.toString(sL) +""+ Character.toString(tL) +": "+ score);
+    			
+    			pw.close();		// make sure to save the output file
+    			ResetGame();
         	}
         }
         

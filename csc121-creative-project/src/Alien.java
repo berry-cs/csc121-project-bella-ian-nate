@@ -3,7 +3,9 @@ import processing.core.PImage;
 
 /* represents an alien object in the game */
 public class Alien extends GameObject {
-	PImage image;
+	private PImage image;
+	private float bufferSpawn = -25;
+	private float imgSize = getSize() + 15;
 
     public Alien(Posn position, int size, PImage image) {
         super(position, size);
@@ -11,27 +13,24 @@ public class Alien extends GameObject {
     }
 
     @Override
-    // alien is a green square right now for simplicity
     public void draw(PApplet p) {
     	if (image != null) {
-            p.image(image, position.x, position.y, size + 15, size + 15);
+            p.image(image, getPosition().getX(), getPosition().getY(), imgSize, imgSize);
         } else { // fallback
             p.fill(0, 255, 0);
-            p.rect(position.x, position.y, size - 15, size - 15);
+            p.rect(getPosition().getX(), getPosition().getY(), imgSize, imgSize);
         }
     }
 
     // moves alien downwards based on the thrust
-    // i think we should cahnge this and the asteroid speed to be random
-    // and have thrust only control the ship
     public void move(int thrust) {
-        position = position.translate(new Posn(0, thrust / 10f));
-        if (position.getY() >= 400 + size) {
+        setPosition(getPosition().translate(new Posn(0, thrust / 10f)));
+        if (getPosition().getY() >= 400 + getSize()) {
             resetPosition();
         }
     }
 
     public void resetPosition() {
-        position = new Posn((int) (Math.random() * 380), -25);
+		setPosition(new Posn((int) (Math.random() * 380), bufferSpawn));
     }
 }
