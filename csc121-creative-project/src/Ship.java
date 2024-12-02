@@ -29,7 +29,7 @@ public class Ship extends GameObject {
         } else {
             // fallback
             p.fill(255);
-            p.ellipse(position.x, position.y, size - 60, size - 90);
+            p.ellipse(position.x, position.y, size + 15, size + 15);
         }
     }
 
@@ -63,7 +63,7 @@ public class Ship extends GameObject {
     
     public Posn checkMovement(Posn pos, float translateX, float translateY) {
     	Posn newPos = pos.translate(new Posn(translateX, translateY));
-    	if (newPos.x <= width - size/2 && newPos.x >= 0 + size/2 && newPos.y >= 0 + size/2 && newPos.y <= height - size/2) {
+    	if (newPos.x <= width - size/2 - 30 && newPos.x >= 0 + size/2 - 15 && newPos.y >= 0 + size/2 - 30 && newPos.y <= height - size/2 - 15) {
     		return newPos;
     	} else {
     		return pos;

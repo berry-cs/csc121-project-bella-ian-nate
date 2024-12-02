@@ -21,9 +21,9 @@ public class SpaceWorld implements IWorld {
     PImage shipImage, alienImage, asteroidImage;
 
     public SpaceWorld(PApplet app) {
-    	this.shipImage = app.loadImage("pixilRocket.png");
-        this.alienImage = app.loadImage("pixilAlien.png");
-        this.asteroidImage = app.loadImage("pixilAsteroid.png");
+    	this.shipImage = app.loadImage("shipSpaceGame.png");
+        this.alienImage = app.loadImage("alienSpaceGame.png");
+        this.asteroidImage = app.loadImage("asteroidSpaceGame.png");
     	
         this.ship = new Ship(new Posn(200, 200), 30, shipImage);
         this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50, alienImage);
