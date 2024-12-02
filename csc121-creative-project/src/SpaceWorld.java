@@ -129,10 +129,11 @@ public class SpaceWorld implements IWorld {
             p.text(tL, 300, 150);
             p.text("_", cursorPos, 155);
             p.fill(255);
-            p.text("Saved Score: " + topScore, 80, 250);
+            p.text("Saved Score: " + topScore, 60, 250);
             p.fill(100);
-            p.text("Press Enter to save last", 50, 300);
-            p.text("score and restart game", 50, 350);
+            p.textSize(28);
+            p.text("Press Enter to save last score", 35, 300);
+            p.text("Press 'r' to try again!", 80, 350);
         }
     }
 
@@ -145,7 +146,7 @@ public class SpaceWorld implements IWorld {
         } else if (kev.getKey() == 's' && thrust > 1) {
             thrust--;
         } else if (kev.getKey() == 'r') {
-        	
+        	ResetGame();
         } else if (gameOver) {
         	if (kev.getKeyCode() == PApplet.UP) {
         		changeLetterUp();
@@ -167,7 +168,7 @@ public class SpaceWorld implements IWorld {
         		pw.println(Character.toString(fL) +""+ Character.toString(sL) +""+ Character.toString(tL) +": "+ score);
     			
     			pw.close();		// make sure to save the output file
-    			ResetGame();
+    			
         	}
         }
         
