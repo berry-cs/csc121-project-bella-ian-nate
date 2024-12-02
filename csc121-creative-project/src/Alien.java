@@ -13,6 +13,7 @@ public class Alien extends GameObject {
     }
 
     @Override
+    /* draws the alien */
     public void draw(PApplet p) {
     	if (image != null) {
             p.image(image, getPosition().getX(), getPosition().getY(), imgSize, imgSize);
@@ -22,7 +23,7 @@ public class Alien extends GameObject {
         }
     }
 
-    // moves alien downwards based on the thrust
+    /* moves alien downwards based on the thrust */
     public void move(int thrust) {
         setPosition(getPosition().translate(new Posn(0, thrust / 10f)));
         if (getPosition().getY() >= 400 + getSize()) {
@@ -30,6 +31,7 @@ public class Alien extends GameObject {
         }
     }
 
+    /* resets the alien's position */
     public void resetPosition() {
 		setPosition(new Posn((int) (Math.random() * 380), bufferSpawn));
     }

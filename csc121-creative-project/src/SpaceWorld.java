@@ -49,7 +49,7 @@ public class SpaceWorld implements IWorld {
 
 
     @Override
-    // updates game for each frame
+    /* updates game for each frame */
     public IWorld update() {
         if (!gameOver) {
         	// makes sure the background speed is always at least 1 (0.1 increases speed every 10%)
@@ -84,7 +84,7 @@ public class SpaceWorld implements IWorld {
 
 
     @Override
-    // draws game
+    /* draws game */
     public void draw(PApplet p) {
         p.background(0);
         if (!gameOver) {
@@ -139,6 +139,7 @@ public class SpaceWorld implements IWorld {
 
 
     @Override
+    /* detects key pressed by user */
     public IWorld keyPressed(KeyEvent kev) {
         ship.handleKeyPressed(kev);
         if (kev.getKey() == 'w' && thrust < 100) {
@@ -177,12 +178,13 @@ public class SpaceWorld implements IWorld {
     }
 
     @Override
+    /* detects key released by the user */
     public IWorld keyReleased(KeyEvent kev) {
         ship.handleKeyReleased(kev);
         return this;
     }
     
-    // resets the game (fresh start, not the same)
+    /* resets the game (fresh start, not the same) */
     public void ResetGame() {
         this.ship = new Ship(new Posn(200, 200), 30, shipImage);
         this.alien = new Alien(new Posn((int) (Math.random() * 380), -25), 50, alienImage);
@@ -196,6 +198,7 @@ public class SpaceWorld implements IWorld {
         this.backgroundSpeed = 1;
     }
     
+    /* changes the letter upwards */
     public void changeLetterUp() {
     	if (aLetter == 0) {
     		fL++;
@@ -207,6 +210,8 @@ public class SpaceWorld implements IWorld {
     		tL++;
     	}
     }
+    
+    /* changes the letter downwards */
     public void changeLetterDown() {
     	if (aLetter == 0) {
     		fL--;
@@ -220,13 +225,14 @@ public class SpaceWorld implements IWorld {
     	}
     }
     
+    /* changes the letter index upwards */
     public void changeLetterIndexUp() {
     	if (aLetter >= 0 && aLetter < 2) {
     		aLetter++;
     		cursorPos += 30;
     	}
     }
-    
+    /* changes the letter index downwards */
     public void changeLetterIndexDown() {
     	if (aLetter > 0 && aLetter <= 2) {
     		aLetter--;
@@ -234,7 +240,7 @@ public class SpaceWorld implements IWorld {
     	}
     }
     
-    // num of asteroids to appear on screen
+    /* num of asteroids to appear on screen */
     public void NumAsteroids(int count) {
         this.asteroids.clear(); // clear existing asteroids (if they're there)
         for (int i = 0; i < count; i++) {
@@ -242,6 +248,7 @@ public class SpaceWorld implements IWorld {
         }
     }
     
+    /* num of stars to appear on screen */
     public void NumStars(int count) {
     	this.stars.clear();
     	for (int i = 0; i < count; i++) {

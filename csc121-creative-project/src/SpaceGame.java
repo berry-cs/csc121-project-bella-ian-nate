@@ -28,15 +28,18 @@ public class SpaceGame extends PApplet {
 //    }
 
     @Override
+    /* detects the key pressed by user */
     public void keyPressed(KeyEvent kev) {
         world = world.keyPressed(kev);
     }
 
     @Override
+    /* detects the key released by user */
     public void keyReleased(KeyEvent kev) {
         world = world.keyReleased(kev);
     }
 
+    /* run the game */
     public static void main(String[] args) {
         PApplet.runSketch(new String[] { SpaceGame.class.getName() }, new SpaceGame());
     }

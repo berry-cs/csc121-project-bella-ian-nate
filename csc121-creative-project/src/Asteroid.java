@@ -15,7 +15,7 @@ public class Asteroid extends GameObject {
     }
 
     @Override
-    // asteroids are red squares right now
+    /* asteroids are red squares right now */
     public void draw(PApplet p) {
     	if (image != null) {
             p.image(image, getPosition().getX(), getPosition().getY(), imgSize, imgSize); 
@@ -25,7 +25,7 @@ public class Asteroid extends GameObject {
         }
     }
 
-    // moves asteroid downwards based on the thrust
+    /* moves asteroid downwards based on the thrust */
     public void move(int thrust) {
         setPosition(getPosition().translate(new Posn(0, thrust / 10f)));
         
@@ -34,6 +34,7 @@ public class Asteroid extends GameObject {
         }
     }
 
+    /* resets the asteroid's position */
     public void resetPosition() {
         setPosition(new Posn((int) (Math.random() * 380), bufferSpawn));
     }

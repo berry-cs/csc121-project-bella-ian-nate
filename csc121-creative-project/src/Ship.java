@@ -24,7 +24,7 @@ public class Ship extends GameObject {
     }
 
     @Override
-    // draws ship as a blue circle
+    /* draws ship as a blue circle */
     public void draw(PApplet p) {
     	
     	if (image != null) {
@@ -36,7 +36,7 @@ public class Ship extends GameObject {
         }
     }
 
-    // start movement
+    /* start movement */
     public void handleKeyPressed(KeyEvent kev) {
         switch (kev.getKeyCode()) {
             case PApplet.UP -> moveUp = true;
@@ -46,7 +46,7 @@ public class Ship extends GameObject {
         }
     }
 
-    // stop movement
+    /* stop movement */
     public void handleKeyReleased(KeyEvent kev) {
         switch (kev.getKeyCode()) {
             case PApplet.UP -> moveUp = false;
@@ -56,7 +56,7 @@ public class Ship extends GameObject {
         }
     }
 
-    // move ship based on key states from above ^
+    /* move ship based on key states from above ^ */
     public void updateMovement() {
 			if (moveUp) setPosition(checkMovement(getPosition(), 0, -moveSpeed));
 		    if (moveDown) setPosition(checkMovement(getPosition(), 0, moveSpeed));
@@ -64,6 +64,7 @@ public class Ship extends GameObject {
 		    if (moveRight) setPosition(checkMovement(getPosition(), moveSpeed, 0));
     }
     
+    /* checks the ships movement against the boundaries of the game */
     public Posn checkMovement(Posn pos, float translateX, float translateY) {
     	Posn newPos = pos.translate(new Posn(translateX, translateY));
     	if (newPos.getX() <= width - imgSize && newPos.getX() >= 0 && newPos.getY() >= 0 && newPos.getY() <= height - imgSize) {
